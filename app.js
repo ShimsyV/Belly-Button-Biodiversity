@@ -36,13 +36,29 @@ function getPlot(id) {
             text: labels,
             orientation: "h",
             type: "bar",
-            marker: {
-                color: 'rgb(142,124,195)'
-            },
+
         };
 
         // create data variable
         var data = [trace];
+
+        // create layout variable to set plots layout
+        var layout = {
+            title: "Top 10 OTU",
+            yaxis: {
+                tickmode: "linear",
+                title: "OTU IDs"
+            },
+            margin: {
+                l: 100,
+                r: 100,
+                t: 100,
+                b: 30
+            }
+        };
+        // create the bar plot
+        Plotly.newPlot("bar", data, layout);
+
 
     })
 
