@@ -11,12 +11,31 @@ function getPlot(id) {
         var samples = data.samples.filter(s => s.id.toString() === id)[0];
 
         console.log(samples);
+
+        // Getting the top 10 
+        var samplevalues = samples.sample_values.slice(0, 10).reverse();
+
+        // get only top 10 otu ids for the plot OTU and reversing it. 
+        var OTU_top = (samples.otu_ids.slice(0, 10)).reverse();
+
+        // get the otu id's to the desired form for the plot
+        var OTU_id = OTU_top.map(d => "OTU " + d)
+
+        //   console.log(`OTU IDS: ${OTU_id}`)
+
+
     })
 
 
 }
 
-//getPlot();
+// create the function for the change event
+function optionChanged(id) {
+    getPlot(id);
+    // getInfo(id);
+}
+
+getPlot();
 
 // create the function for the initial data rendering
 function init() {
