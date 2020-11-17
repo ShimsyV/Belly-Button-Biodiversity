@@ -1,3 +1,13 @@
+// Creating function for Data plotting (Bar, gauge, bubble)
+function getPlot(id) {
+    // get data from json file
+    d3.json("data/samples.json").then((data) => {
+        console.log(data)
+    })
+
+
+}
+
 // create the function for the initial data rendering
 function init() {
     // select dropdown menu 
