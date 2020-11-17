@@ -3,10 +3,15 @@ function getPlot(id) {
     // get data from json file
     d3.json("data/samples.json").then((data) => {
         console.log(data)
+
+        var wfreq = data.metadata.map(d => d.wfreq)
+        console.log(`Washing Frequency: ${wfreq}`)
     })
 
 
 }
+
+//getPlot();
 
 // create the function for the initial data rendering
 function init() {
