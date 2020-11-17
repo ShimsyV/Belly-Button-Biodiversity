@@ -27,8 +27,22 @@ function getPlot(id) {
         var labels = samples.otu_labels.slice(0, 10);
 
         //   console.log(`Sample Values: ${samplevalues}`)
-        console.log(`Id Values: ${OTU_top}`)
+        //   console.log(`Id Values: ${OTU_top}`)
 
+        // create trace variable for the plot
+        var trace = {
+            x: samplevalues,
+            y: OTU_id,
+            text: labels,
+            orientation: "h",
+            type: "bar",
+            marker: {
+                color: 'rgb(142,124,195)'
+            },
+        };
+
+        // create data variable
+        var data = [trace];
 
     })
 
