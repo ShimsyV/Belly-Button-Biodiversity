@@ -76,6 +76,18 @@ function getPlot(id) {
         // creating data variable 
         var data1 = [trace1];
 
+        // set the layout for the bubble plot
+        var layout1 = {
+            xaxis: { title: "OTU ID" },
+            yaxis: { title: "Sample Values" },
+            height: 600,
+            width: 1000
+        };
+
+        // create the bubble plot
+        Plotly.newPlot("bubble", data1, layout1);
+
+
 
 
 
