@@ -1,11 +1,11 @@
 // Creating function for Data plotting (Bar, gauge, bubble)
 function getPlot(id) {
-    // get data from json file
+    // getting data from the json file
     d3.json("data/samples.json").then((data) => {
         console.log(data)
 
         var wfreq = data.metadata.map(d => d.wfreq)
-        console.log(`Washing Frequency: ${wfreq}`)
+        console.log(`Washing Freq: ${wfreq}`)
 
         // filter sample values by id 
         var samples = data.samples.filter(s => s.id.toString() === id)[0];
@@ -23,20 +23,19 @@ function getPlot(id) {
 
         //   console.log(`OTU IDS: ${OTU_id}`)
 
+
         // get the top 10 labels for the plot
         var labels = samples.otu_labels.slice(0, 10);
 
         //   console.log(`Sample Values: ${samplevalues}`)
         //   console.log(`Id Values: ${OTU_top}`)
-
         // create trace variable for the plot
         var trace = {
             x: samplevalues,
             y: OTU_id,
             text: labels,
-            orientation: "h",
             type: "bar",
-
+            orientation: "h",
         };
 
         // create data variable
@@ -47,7 +46,6 @@ function getPlot(id) {
             title: "Top 10 OTU",
             yaxis: {
                 tickmode: "linear",
-                title: "OTU IDs"
             },
             margin: {
                 l: 100,
@@ -56,6 +54,7 @@ function getPlot(id) {
                 b: 30
             }
         };
+
         // create the bar plot
         Plotly.newPlot("bar", data, layout);
 
@@ -66,34 +65,31 @@ function getPlot(id) {
             x: samples.otu_ids,
             y: samples.sample_values,
             mode: "markers",
-            text: samples.otu_labels,
             marker: {
                 size: samples.sample_values,
                 color: samples.otu_ids
-            }
-        };
+            },
+            text: samples.otu_labels
 
+        };
         // creating data variable 
         var data1 = [trace1];
 
         // set the layout for the bubble plot
         var layout1 = {
             xaxis: { title: "OTU ID" },
-            yaxis: { title: "Sample Values" },
             height: 600,
-            width: 1200
+            width: 1000
         };
+
+
 
         // create the bubble plot
         Plotly.newPlot("bubble", data1, layout1);
 
-
-    })
-
-
+    });
 }
-
-// create the function to get the necessary data for demographic panel
+// create the function to get the necessary data
 function getInfo(id) {
     // read the json file to get data
     d3.json("data/samples.json").then((data) => {
@@ -103,7 +99,19 @@ function getInfo(id) {
 
         console.log(metadata)
 
+        // filter meta data info by id
+        var result = metadata.filter(meta => meta.id.toString() === id)[0];
 
+        // select demographic panel to put data
+        var demographicInfo = d3.select("#sample-metadata");
+
+        // empty the demographic info panel each time before getting new id info
+        demographicInfo.html("");
+
+        // grab the necessary demographic data data for the id and append the info to the panel
+        Object.entries(result).forEach((key) => {
+            demographicInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");
+        });
     });
 }
 
@@ -112,8 +120,6 @@ function optionChanged(id) {
     getPlot(id);
     getInfo(id);
 }
-
-getPlot();
 
 // create the function for the initial data rendering
 function init() {
@@ -129,6 +135,9 @@ function init() {
             dropdown.append("option").text(name).property("value");
         });
 
+        // call the functions to display the data and the plots to the page
+        getPlot(data.names[0]);
+        getInfo(data.names[0]);
     });
 }
 
