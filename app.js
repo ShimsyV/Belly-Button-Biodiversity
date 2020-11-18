@@ -59,6 +59,27 @@ function getPlot(id) {
         // create the bar plot
         Plotly.newPlot("bar", data, layout);
 
+        //console.log(`ID: ${samples.otu_ids}`)
+
+        // The bubble chart
+        var trace1 = {
+            x: samples.otu_ids,
+            y: samples.sample_values,
+            mode: "markers",
+            text: samples.otu_labels,
+            marker: {
+                size: samples.sample_values,
+                color: samples.otu_ids
+            }
+        };
+
+        // creating data variable 
+        var data1 = [trace1];
+
+
+
+
+
 
     })
 
