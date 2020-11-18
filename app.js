@@ -110,6 +110,12 @@ function getPlot(id) {
             }
         ];
 
+        var layout2 = {
+            width: 700,
+            height: 600,
+            margin: { t: 20, b: 40, l: 100, r: 100 }
+        };
+
 
     });
 }
