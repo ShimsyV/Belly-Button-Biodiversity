@@ -81,16 +81,11 @@ function getPlot(id) {
             xaxis: { title: "OTU ID" },
             yaxis: { title: "Sample Values" },
             height: 600,
-            width: 1000
+            width: 1200
         };
 
         // create the bubble plot
         Plotly.newPlot("bubble", data1, layout1);
-
-
-
-
-
 
 
     })
@@ -98,10 +93,24 @@ function getPlot(id) {
 
 }
 
+// create the function to get the necessary data for demographic panel
+function getInfo(id) {
+    // read the json file to get data
+    d3.json("data/samples.json").then((data) => {
+
+        // get the metadata info for the demographic panel
+        var metadata = data.metadata;
+
+        console.log(metadata)
+
+
+    });
+}
+
 // create the function for the change event
 function optionChanged(id) {
     getPlot(id);
-    // getInfo(id);
+    getInfo(id);
 }
 
 getPlot();
