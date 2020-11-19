@@ -34,6 +34,7 @@ function getPlot(id) {
             x: samplevalues,
             y: OTU_id,
             text: labels,
+
             type: "bar",
             orientation: "h",
         };
@@ -43,7 +44,7 @@ function getPlot(id) {
 
         // create layout variable to set plots layout
         var layout = {
-            title: "Top 10 OTU",
+            title: `Top 10 OTU for ${id}`,
             yaxis: {
                 tickmode: "linear",
             },
@@ -72,51 +73,60 @@ function getPlot(id) {
             text: samples.otu_labels
 
         };
-        // creating data variable 
-        var data1 = [trace1];
 
         // set the layout for the bubble plot
         var layout1 = {
+            title: `Sample values for ${id}`,
             xaxis: { title: "OTU ID" },
+            yaxis: { title: "Sample Value " },
             height: 600,
             width: 1000
         };
 
+        // creating data variable 
+        var data1 = [trace1];
+
         // create the bubble plot
         Plotly.newPlot("bubble", data1, layout1);
 
+        // The guage chart
+        //var valueSelect = d3.select("#selDataset").node().value;
+        //var filterValue = data.metadata.filter(value => value.id == id);
+        //var weeklyFreq = filterValue[0].wfreq;
 
-        // Create the  guage chart
-
-        var data2 = [
+        var data_g = [
             {
                 domain: { x: [0, 1], y: [0, 1] },
                 value: parseFloat(wfreq),
-                title: { text: `Weekly Washing Frequency ` },
                 type: "indicator",
 
                 mode: "gauge+number",
                 gauge: {
                     axis: { range: [null, 9] },
                     steps: [
-                        { range: [0, 2], color: "powderblue" },
-                        { range: [2, 4], color: "lightskyblue" },
-                        { range: [4, 6], color: "deepskyblue" },
-                        { range: [6, 8], color: "mediumblue" },
-                        { range: [8, 9], color: "navy" },
-                    ]
+                        { range: [8, 9], color: "#97BC76" },
+                        { range: [7, 8], color: "#A3C483" },
+                        { range: [6, 7], color: "#B0CC91" },
+                        { range: [5, 6], color: "#BDD49E" },
+                        { range: [4, 5], color: "#CADCAC" },
+                        { range: [3, 4], color: "#D7E4B9" },
+                        { range: [2, 3], color: "#E4ECC7" },
+                        { range: [1, 2], color: "#F1F4D4" },
+                        { range: [0, 1], color: "#FEFDE2" }
+
+                    ],
+
                 }
 
             }
         ];
-
-        var layout2 = {
-            width: 700,
+        var layout_g = {
+            width: 600,
             height: 600,
-            margin: { t: 20, b: 40, l: 100, r: 100 }
+            title: `<b>Belly Button Washing Frequency</b> <br> Scrubs per Week for ${id}`,
+            margin: { t: 30, b: 40, l: 100, r: 100 }
         };
-
-
+        Plotly.newPlot("gauge", data_g, layout_g);
     });
 }
 // create the function to get the necessary data
